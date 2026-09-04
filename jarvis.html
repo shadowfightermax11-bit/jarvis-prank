@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J.A.R.V.I.S.</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #020609;
+    color: #00eaff;
+    font-family: Consolas, monospace;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 430px;
+    text-align: center;
+    border: 1px solid #00eaff;
+    padding: 30px 20px;
+    box-shadow: 0 0 25px #00eaff55;
+}
+
+h1 {
+    letter-spacing: 7px;
+    text-shadow: 0 0 15px #00eaff;
+}
+
+.status {
+    font-size: 12px;
+    margin-bottom: 35px;
+    opacity: .8;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    background: #031117;
+    border: 1px solid #00eaff;
+    color: #00eaff;
+    outline: none;
+    font-family: inherit;
+}
+
+button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 1px solid #00eaff;
+    color: #00eaff;
+    font-family: inherit;
+    cursor: pointer;
+    letter-spacing: 2px;
+}
+
+button:hover {
+    background: #00eaff;
+    color: #020609;
+}
+
+#result {
+    display: none;
+}
+
+.granted {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 25px 0;
+    text-shadow: 0 0 15px #00eaff;
+}
+
+.small {
+    font-size: 12px;
+    opacity: .75;
+    line-height: 1.8;
+}
+
+#loading {
+    display: none;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>J.A.R.V.I.S.</h1>
+
+    <div class="status">
+        PERSONAL ASSISTANT SYSTEM<br>
+        INITIALIZATION SEQUENCE
+    </div>
+
+    <div id="form">
+
+        <input id="name" type="text" placeholder="ENTER YOUR NAME">
+
+        <input id="phone" type="tel" placeholder="ENTER PHONE NUMBER">
+
+        <button onclick="start()">INITIALIZE</button>
+
+        <div id="loading"></div>
+
+    </div>
+
+    <div id="result">
+
+        <div class="small">
+            IDENTITY VERIFICATION COMPLETE
+        </div>
+
+        <div class="granted">
+            ACCESS GRANTED<br>
+            TO JARVIS
+        </div>
+
+        <div class="small">
+            WELCOME, <span id="username"></span><br><br>
+            J.A.R.V.I.S. ONLINE<br>
+            SYSTEM STATUS: READY
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function start() {
+
+    const name = document.getElementById("name").value.trim();
+
+    if (!name) {
+        alert("NAME REQUIRED");
+        return;
+    }
+
+    document.getElementById("loading").style.display = "block";
+
+    let messages = [
+        "SCANNING...",
+        "VERIFYING IDENTITY...",
+        "AUTHENTICATING...",
+        "ACCESS PROTOCOL ACCEPTED..."
+    ];
+
+    let i = 0;
+
+    const interval = setInterval(() => {
+
+        document.getElementById("loading").innerText = messages[i];
+
+        i++;
+
+        if (i >= messages.length) {
+
+            clearInterval(interval);
+
+            setTimeout(() => {
+
+                document.getElementById("form").style.display = "none";
+                document.getElementById("result").style.display = "block";
+
+                document.getElementById("username").innerText =
+                    name.toUpperCase();
+
+            }, 700);
+        }
+
+    }, 700);
+}
+
+</script>
+
+</body>
+</html>
